@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "knowledge/сode/Ansible/Ansible Roles.md",
-                "mode": "preview",
+                "file": "knowledge/сode/git/new repo.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Ansible Roles"
+              "title": "new repo"
             }
           }
         ]
@@ -211,16 +211,17 @@
       "canvas:Создать новый холст": false,
       "command-palette:Открыть палитру команд": false,
       "random-note:Открыть случайную заметку": false,
-      "templater-obsidian:Templater": false,
       "obsidian-git:Open Git source control": false,
-      "periodic-notes:Open today": false,
       "omnisearch:Omnisearch": false,
       "dashboard-navigator:Open dashboard navigator": false,
       "obsidian-kanban:Создать новую доску": false
     }
   },
-  "active": "6b4c242eb8f7fa80",
+  "active": "26aeb83f9216822b",
   "lastOpenFiles": [
+    "knowledge/сode/Ansible/Ansible Roles.md",
+    "knowledge/сode/git/new repo.md",
+    "knowledge/сode/git",
     "README.md",
     "knowledge/сode/Ansible/Ansible Commands.md",
     "knowledge/сode/Java + Kotlin/SLF4J.md",
@@ -239,7 +240,6 @@
     "knowledge/сode/Obsidian",
     "knowledge/сode/nginx/location.md",
     "knowledge/сode/nginx",
-    "knowledge/сode/Ansible/Ansible Roles.md",
     "knowledge/сode/Ansible",
     "knowledge/сode/App Design Basics",
     "knowledge/сode/DSA/plan.md",
@@ -253,10 +253,8 @@
     "knowledge/сode/Network/Интерфейс сокетов.md",
     "knowledge/сode/Network/WebSocket.md",
     "knowledge/сode/Network/dhcp.md",
-    "knowledge/сode/Network/VLAN.md",
     "knowledge/сode/Network",
     "knowledge/сode/Java + Kotlin",
-    "knowledge/сode/GitLab",
     "Без названия.canvas"
   ]
 }

@@ -36,8 +36,6 @@
   },
   "projects": "📐",
   "knowledge": "📔",
-  "knowledge/simple": "⛅",
-  "knowledge/сode": "🖥",
   "tasks": "📌",
   "tasks/Overdue.md": "⌛",
   "tasks/Done.md": "✅",
@@ -57,6 +55,5 @@
   "goals/Сдать на права.md": "🎯",
   "goals/goals.md": "🎯",
   "goals/DevOps.md": "🎯",
-  "knowledge/school": "LiBook",
   "knowledge/сode/Obsidian/obsidian.md": "🗿"
 }
