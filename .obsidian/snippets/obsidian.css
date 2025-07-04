@@ -1,0 +1,17 @@
+.currency {
+    color: DarkGoldenRod;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.currency-up {
+    color: DarkGreen;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.currency-down {
+    color: Crimson;
+    font-weight: bold;
+    font-size: 1.2em;
+}

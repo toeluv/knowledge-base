@@ -1,0 +1,262 @@
+{
+  "main": {
+    "id": "b9fcfadb281d127f",
+    "type": "split",
+    "children": [
+      {
+        "id": "3736a275e0669e5e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "26aeb83f9216822b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "knowledge/сode/Ansible/Ansible Roles.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Ansible Roles"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "96781cfbe4fa71be",
+    "type": "split",
+    "children": [
+      {
+        "id": "e9b91bcac82dc3f2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5f25a4f9155f3292",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Файловый менеджер"
+            }
+          },
+          {
+            "id": "b749a73af08fe0e7",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Поиск"
+            }
+          },
+          {
+            "id": "09669518743649ef",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Закладки"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 250.5
+  },
+  "right": {
+    "id": "3596cc852e5d494f",
+    "type": "split",
+    "children": [
+      {
+        "id": "68cce4cb644eae4e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6965aa011a03a723",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "knowledge/сode/Linux Core/Hotkeys.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Обратные ссылки для Hotkeys"
+            }
+          },
+          {
+            "id": "5c1e9dc32c5d18a3",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "knowledge/сode/Linux Core/Hotkeys.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Исходящие ссылки из Hotkeys"
+            }
+          },
+          {
+            "id": "0d88321697557a5a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Теги"
+            }
+          },
+          {
+            "id": "3b91a51fffe25e42",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Все свойства"
+            }
+          },
+          {
+            "id": "c173e95023e7fea5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "knowledge/сode/Linux Core/Hotkeys.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Структура Hotkeys"
+            }
+          },
+          {
+            "id": "5bd652d7467bf97d",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Плагин больше не активен"
+            }
+          },
+          {
+            "id": "6b4c242eb8f7fa80",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          },
+          {
+            "id": "f38cf7689d328b1c",
+            "type": "leaf",
+            "state": {
+              "type": "file-properties",
+              "state": {
+                "file": "jobs/10 semester.md"
+              },
+              "icon": "lucide-info",
+              "title": "Свойства файла для 10 semester"
+            }
+          }
+        ],
+        "currentTab": 6
+      }
+    ],
+    "direction": "horizontal",
+    "width": 286.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Меню быстрого перехода": false,
+      "graph:Граф": false,
+      "canvas:Создать новый холст": false,
+      "command-palette:Открыть палитру команд": false,
+      "random-note:Открыть случайную заметку": false,
+      "templater-obsidian:Templater": false,
+      "obsidian-git:Open Git source control": false,
+      "periodic-notes:Open today": false,
+      "omnisearch:Omnisearch": false,
+      "dashboard-navigator:Open dashboard navigator": false,
+      "obsidian-kanban:Создать новую доску": false
+    }
+  },
+  "active": "5f25a4f9155f3292",
+  "lastOpenFiles": [
+    "knowledge/сode/Ansible/Ansible Commands.md",
+    "knowledge/сode/Java + Kotlin/SLF4J.md",
+    "knowledge/сode/Java + Kotlin/Interface Fields.md",
+    "knowledge/сode/SQL/Блокировки в SQL.md",
+    "knowledge/сode/Obsidian/obsidian.md",
+    "knowledge/сode/App Design Basics/Rest Endpoints.md",
+    "knowledge/сode/App Design Basics/DDD Core.md",
+    "knowledge/school/Онтология лекция 04.04.md",
+    "knowledge/school/Множители Лагранжа.md",
+    "knowledge/school",
+    "knowledge/сode/SQL/Уровни изоляции и проблемы чтения.md",
+    "knowledge/сode/SQL/jsonb (psql).md",
+    "knowledge/сode/SQL/ACID.md",
+    "knowledge/сode/SQL",
+    "knowledge/сode/Obsidian",
+    "knowledge/сode/nginx/location.md",
+    "knowledge/сode/nginx",
+    "knowledge/сode/Ansible/Ansible Roles.md",
+    "knowledge/сode/Ansible",
+    "knowledge/сode/App Design Basics",
+    "knowledge/сode/DSA/plan.md",
+    "knowledge/сode/DSA/o-notation.md",
+    "knowledge/сode/DSA/linear search.md",
+    "knowledge/сode/DSA",
+    "knowledge/сode/Network/Структура сообщений.md",
+    "knowledge/сode/Network/Стек TCP-IP.md",
+    "knowledge/сode/Network/Сокеты в UNIX.md",
+    "knowledge/сode/Network/Сквозной TCP,UDP.md",
+    "knowledge/сode/Network/Интерфейс сокетов.md",
+    "knowledge/сode/Network/WebSocket.md",
+    "knowledge/сode/Network/dhcp.md",
+    "knowledge/сode/Network/VLAN.md",
+    "knowledge/сode/Network/STOMP.md",
+    "knowledge/сode/Network",
+    "knowledge/сode/Java + Kotlin",
+    "knowledge/сode/GitLab",
+    "Без названия.canvas"
+  ]
+}

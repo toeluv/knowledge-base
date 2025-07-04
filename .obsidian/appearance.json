@@ -1,0 +1,11 @@
+{
+  "cssTheme": "AnuPpuccin",
+  "interfaceFontFamily": "",
+  "textFontFamily": "",
+  "accentColor": "",
+  "baseFontSize": 14,
+  "enabledCssSnippets": [
+    "supercharged-links-gen",
+    "obsidian"
+  ]
+}

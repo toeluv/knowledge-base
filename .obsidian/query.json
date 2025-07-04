@@ -1,0 +1,13 @@
+{
+  "queries": [
+    {
+      "createdAt": "2025/01/30 00:56:14",
+      "id": "202501300056140",
+      "pinnedAt": "",
+      "querystring": "[{\"type\":\"TAG\",\"value\":{\"operator\":\"CONTAIN\",\"value\":\"devops\"},\"relation\":\"AND\"}]",
+      "title": "dev",
+      "updatedAt": "2025/01/30 00:56:14",
+      "userId": "Thino"
+    }
+  ]
+}

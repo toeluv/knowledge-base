@@ -1,0 +1,6 @@
+{
+  "show-checkboxes": true,
+  "new-card-insertion-method": "prepend",
+  "move-tags": true,
+  "move-dates": true
+}
