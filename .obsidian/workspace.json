@@ -219,8 +219,9 @@
       "obsidian-kanban:Создать новую доску": false
     }
   },
-  "active": "5f25a4f9155f3292",
+  "active": "6b4c242eb8f7fa80",
   "lastOpenFiles": [
+    "README.md",
     "knowledge/сode/Ansible/Ansible Commands.md",
     "knowledge/сode/Java + Kotlin/SLF4J.md",
     "knowledge/сode/Java + Kotlin/Interface Fields.md",
@@ -253,7 +254,6 @@
     "knowledge/сode/Network/WebSocket.md",
     "knowledge/сode/Network/dhcp.md",
     "knowledge/сode/Network/VLAN.md",
-    "knowledge/сode/Network/STOMP.md",
     "knowledge/сode/Network",
     "knowledge/сode/Java + Kotlin",
     "knowledge/сode/GitLab",
