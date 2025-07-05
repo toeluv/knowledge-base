@@ -25,7 +25,32 @@
 3. **Можно реализовать итеративно и рекурсивно**.  
 
 ---
-
+### **🧑🏻‍💻 Реализация**
+```java
+public class BinarySearch {
+  public static int search(int[] array, int toFind) {
+    for (int i = 0; i < array.length - 1; i++) {
+      if (array[i] > array[i + 1]) {
+        throw new IllegalStateException("Input array must be sorted in ascending order");
+      }
+    }
+    int left = 0;
+    int right = array.length - 1;
+    while (left <= right) {
+      int mid = left + (right - left) / 2;
+      if (array[mid] == toFind) {
+        return mid;
+      } else if (array[mid] < toFind) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+    return -1;
+  }
+}
+```
+---
 ### **🛠️ Применение**  
 - Поиск в массивах, списках.  
 - В более сложных алгоритмах (например, поиск в **бинарных деревьях**).  
