@@ -1,177 +1,339 @@
-# Префиксные суммы и HashMap: краткий обзор
-**Основная концепция**  
-Префиксные суммы — это техника для эффективного вычисления суммы подмассивов, позволяющая избежать повторных вычислений.
+# Префиксные суммы и HashMap: мастер-класс по технике подмассивов
 
-**Ключевая формула:**
+**Префиксные суммы** — мощная техника оптимизации, превращающая O(n²) в O(n) для задач о подмассивах. В сочетании с HashMap она становится универсальным инструментом решения сложных проблем.
+
+## 📊 Основная концепция
+
+**Префиксная сумма** — массив, где `prefix[i]` содержит сумму первых `i` элементов:
+```java
+prefix[i] = nums[0] + nums[1] + ... + nums[i-1]
 ```
-prefixSum[j] − prefixSum[i] = target
+
+**Ключевое наблюдение**: сумма подмассива `[i, j]`:
 ```
-Перегруппируем:
+sum(i, j) = prefix[j+1] - prefix[i]
 ```
-prefixSum[i] = prefixSum[j] − target
+
+Это позволяет вычислять сумму любого подмассива за O(1), если предварительно посчитать префиксные суммы.
+
+## 🔥 Фундаментальная идея
+
+Для задачи **"найти подмассив с суммой = K"**:
+
 ```
-Используя HashMap, мы храним ранее встреченные префиксные суммы и их индексы, что позволяет эффективно находить подмассивы.
+prefix[j] - prefix[i] = K
+prefix[i] = prefix[j] - K
+```
+
+Мы ищем в истории такую префиксную сумму `prefix[i]`, которая равна `prefix[j] - K`.
+
+**HashMap здесь выступает как мгновенный поисковик в истории** — вместо линейного перебора предыдущих индексов (O(n²)), мы получаем O(1).
 
 ---
 
-## 🔹 Паттерны задач и использование HashMap
+## 🎯 Паттерны задач и решения
 
-| Паттерн                     | Тип задачи                                          | Ключевая идея HashMap                                     | Ключ HashMap            | Значение HashMap           |
-|-----------------------------|----------------------------------------------------|----------------------------------------------------------|-------------------------|----------------------------|
-| **Точное совпадение суммы** | Найти кратчайший подмассив с суммой = target       | Проверка наличия `prefixSum[j] - target`                 | Значения префиксных сумм | Индекс первого вхождения   |
-| **Количество подмассивов**  | Посчитать подмассивы с суммой = target             | Подсчёт частот `prefixSum[j] - target`                   | Значения префиксных сумм | Частота каждой суммы       |
-| **Модульное условие**       | Найти подмассив с суммой % k == 0                  | Проверка остатков `prefixSum[j] % k`                     | Остаток от деления на k  | Индекс первого вхождения   |
-| **Сбалансированная сумма**  | Подмассив с равным количеством 0 и 1 (0 → -1)      | Работа с преобразованными префиксными суммами            | Значения префиксных сумм | Индекс первого вхождения   |
-| **Ближайшая сумма**         | Подмассив с суммой, наиболее близкой к target      | Использование TreeMap для поиска ближайшего ключа        | Значения префиксных сумм | Индекс первого вхождения   |
+### 1️⃣ **Точное совпадение суммы**
 
----
+**Задача**: Найти кратчайший подмассив с суммой = target
 
-## 🔹 Примеры задач и решения
-
-### 1. Кратчайший подмассив с суммой = target
 ```java
 public int shortestSubarray(int[] nums, int target) {
-    int shortest = Integer.MAX_VALUE, sum = 0;
-    Map<Integer, Integer> map = new HashMap<>();
-    map.put(0, -1); // База: пустой подмассив
+    Map<Integer, Integer> prefixMap = new HashMap<>();
+    prefixMap.put(0, -1); // Пустой подмассив (важная инициализация!)
+    
+    int sum = 0, minLength = Integer.MAX_VALUE;
     
     for (int j = 0; j < nums.length; j++) {
-        sum += nums[j];
-        if (map.containsKey(sum - target)) {
-            shortest = Math.min(shortest, j - map.get(sum - target));
+        sum += nums[j]; // Текущая префиксная сумма
+        
+        // Ищем в истории: sum - previous = target
+        if (prefixMap.containsKey(sum - target)) {
+            int i = prefixMap.get(sum - target);
+            minLength = Math.min(minLength, j - i);
         }
-        // Сохраняем только первое вхождение для кратчайшего подмассива
-        map.putIfAbsent(sum, j);
+        
+        // Сохраняем только первое вхождение (для кратчайшего)
+        prefixMap.putIfAbsent(sum, j);
     }
-    return shortest == Integer.MAX_VALUE ? -1 : shortest;
+    
+    return minLength == Integer.MAX_VALUE ? -1 : minLength;
 }
 ```
 
-### 2. Длиннейший подмассив с суммой = target
-```java
-public int longestSubarray(int[] nums, int target) {
-    int longest = 0, sum = 0;
-    Map<Integer, Integer> map = new HashMap<>();
-    map.put(0, -1);
-    
-    for (int j = 0; j < nums.length; j++) {
-        sum += nums[j];
-        if (map.containsKey(sum - target)) {
-            longest = Math.max(longest, j - map.get(sum - target));
-        }
-        // Сохраняем только первое вхождение
-        map.putIfAbsent(sum, j);
-    }
-    return longest;
-}
-```
+📝 **Когда использовать**: 
+- Все числа положительные
+- Нужно найти подмассив РОВНО с заданной суммой
+- Пример: `[1, 2, 3, 4], target = 6` → `[2, 4]` длина 2
 
-### 3. Количество подмассивов с суммой = target
+---
+
+### 2️⃣ **Подсчёт количества подмассивов**
+
+**Задача**: Сколько подмассивов имеют сумму = target?
+
 ```java
-public int countSubarray(int[] nums, int target) {
-    int count = 0, sum = 0;
-    Map<Integer, Integer> map = new HashMap<>();
-    map.put(0, 1);
+public int countSubarrays(int[] nums, int target) {
+    Map<Integer, Integer> freqMap = new HashMap<>();
+    freqMap.put(0, 1); // Пустой подмассив уже существует
     
-    for (int j = 0; j < nums.length; j++) {
-        sum += nums[j];
-        count += map.getOrDefault(sum - target, 0);
-        map.put(sum, map.getOrDefault(sum, 0) + 1);
+    int sum = 0, count = 0;
+    
+    for (int num : nums) {
+        sum += num;
+        
+        // Каждое предыдущее вхождение даёт новый подмассив
+        count += freqMap.getOrDefault(sum - target, 0);
+        
+        // Увеличиваем частоту текущей суммы
+        freqMap.put(sum, freqMap.getOrDefault(sum, 0) + 1);
     }
+    
     return count;
 }
 ```
 
-### 4. Подмассив с суммой, ближайшей к target (TreeMap)
+📝 **Пример**: `[1, 1, 1], target = 2`
+- `sum=1` → нет 1-2=-1
+- `sum=2` → есть 2-2=0 (count=1) → `[1, 1]`
+- `sum=3` → есть 3-2=1 (count=2) → `[1, 1]` (индексы 1-2)
+
+---
+
+### 3️⃣ **Подмассивы по модулю**
+
+**Задача**: Найти подмассив с суммой, кратной K
+
 ```java
-public int closestSubarray(int[] nums, int target) {
-    int closestDiff = Integer.MAX_VALUE, sum = 0;
-    TreeMap<Integer, Integer> map = new TreeMap<>();
-    map.put(0, -1);
+public int longestSubarrayDivisibleByK(int[] nums, int K) {
+    Map<Integer, Integer> modMap = new HashMap<>();
+    modMap.put(0, -1); // Сумма 0 делится на любое K
+    
+    int sum = 0, maxLength = 0;
     
     for (int j = 0; j < nums.length; j++) {
         sum += nums[j];
-        // Ближайший ключ к (sum - target)
-        Integer floor = map.floorKey(sum - target);
-        Integer ceil = map.ceilingKey(sum - target);
+        int remainder = sum % K;
         
-        if (floor != null) {
-            closestDiff = Math.min(closestDiff, Math.abs(sum - floor - target));
-        }
-        if (ceil != null) {
-            closestDiff = Math.min(closestDiff, Math.abs(sum - ceil - target));
-        }
-        map.put(sum, j);
-    }
-    return closestDiff;
-}
-```
-
-### 5. Длиннейший подмассив с суммой, кратной k
-```java
-public int longestSubarrayDivK(int[] nums, int k) {
-    int longest = 0, sum = 0;
-    Map<Integer, Integer> map = new HashMap<>();
-    map.put(0, -1);
-    
-    for (int j = 0; j < nums.length; j++) {
-        sum += nums[j];
-        int remainder = sum % k;
-        if (remainder < 0) remainder += k; // Корректировка для отрицательных чисел
+        // Корректируем отрицательные остатки
+        if (remainder < 0) remainder += K;
         
-        if (map.containsKey(remainder)) {
-            longest = Math.max(longest, j - map.get(remainder));
+        if (modMap.containsKey(remainder)) {
+            // Две суммы с одинаковым остатком → их разность делится на K
+            maxLength = Math.max(maxLength, j - modMap.get(remainder));
         } else {
-            map.put(remainder, j);
+            modMap.put(remainder, j);
         }
     }
-    return longest;
-}
-```
-
-### 6. Сбалансированный подмассив (равное количество 0 и 1)
-```java
-public int findMaxLength(int[] nums) {
-    int maxLength = 0, prefixSum = 0;
-    Map<Integer, Integer> map = new HashMap<>();
-    map.put(0, -1);
     
-    for (int i = 0; i < nums.length; i++) {
-        // Преобразуем: 0 → -1, 1 → 1
-        prefixSum += (nums[i] == 1) ? 1 : -1;
-        
-        if (map.containsKey(prefixSum)) {
-            maxLength = Math.max(maxLength, i - map.get(prefixSum));
-        } else {
-            map.put(prefixSum, i);
-        }
-    }
     return maxLength;
 }
 ```
 
----
-
-## 🔹 Ключевые различия и частые ошибки
-
-| Тип задачи               | Метод поиска                          | Используемая структура      | Особенности                          |
-|--------------------------|---------------------------------------|-----------------------------|--------------------------------------|
-| Точное совпадение        | `prefixSum[j] - target == prefixSum[i]` | HashMap (индекс)            | Сохраняем первое вхождение          |
-| Подсчёт частот           | `count += map.get(prefixSum[j] - target)` | HashMap (частота)           | Учитываем все вхождения             |
-| Ближайшее значение       | `floorKey()` и `ceilingKey()`         | TreeMap                     | Работа с упорядоченными ключами      |
-| Модульные условия        | `prefixSum[j] % k == prefixSum[i] % k` | HashMap (остаток → индекс)  | Корректировка отрицательных остатков |
-
-**Важные моменты:**
-- Всегда инициализируйте HashMap с `(0, -1)` или `(0, 1)`
-- Для кратчайшего подмассива — `putIfAbsent()`
-- Для подсчёта — увеличиваем частоту
-- При работе с остатками корректируем отрицательные значения
+📝 **Логика**: Если `prefix[j] % K == prefix[i] % K`, то `(prefix[j] - prefix[i]) % K == 0`
 
 ---
 
-## 🔹 Практическое применение в AI/ML
-- **Прогнозирование временных рядов** — обнаружение аномалий в логах
-- **Анализ последовательностей в NLP** — поиск паттернов в тексте
-- **Обнаружение мошенничества** — выявление аномальных финансовых операций
+### 4️⃣ **Сбалансированные последовательности**
 
-**Владение техникой префиксных сумм + HashMap критически важно для эффективного решения широкого класса задач на подмассивы! 🚀**
+**Задача**: Найти максимальную длину подмассива с равным количеством 0 и 1
+
+```java
+public int findMaxLength(int[] nums) {
+    // Преобразуем: 0 → -1, 1 → 1
+    Map<Integer, Integer> balanceMap = new HashMap<>();
+    balanceMap.put(0, -1);
+    
+    int balance = 0, maxLength = 0;
+    
+    for (int i = 0; i < nums.length; i++) {
+        balance += (nums[i] == 1) ? 1 : -1;
+        
+        if (balanceMap.containsKey(balance)) {
+            // Если баланс повторился, между этими индексами 0 и 1 поровну
+            maxLength = Math.max(maxLength, i - balanceMap.get(balance));
+        } else {
+            balanceMap.put(balance, i);
+        }
+    }
+    
+    return maxLength;
+}
+```
+
+📝 **Пример**: `[0, 1, 0, 0, 1, 1, 0]`
+Преобразуем: `[-1, 1, -1, -1, 1, 1, -1]`
+Баланс = 0 на индексах 0 и 6 → длина = 6
+
+---
+
+## ⚠️ **Критические ошибки и как их избежать**
+
+### ❌ Ошибка 1: Пропуск инициализации
+```java
+// НЕПРАВИЛЬНО:
+Map<Integer, Integer> map = new HashMap<>();
+// Пропущен put(0, -1) или put(0, 1)
+
+// ПРАВИЛЬНО:
+map.put(0, -1); // Для задач на длину
+// ИЛИ
+map.put(0, 1);  // Для задач на подсчёт
+```
+
+**Почему**: Пустой подмассив (сумма=0) всегда существует!
+
+### ❌ Ошибка 2: Перезапись индексов в задачах на максимальную длину
+```java
+// Для МАКСИМАЛЬНОЙ длины:
+map.putIfAbsent(sum, i);  // Сохраняем первый индекс
+
+// Для МИНИМАЛЬНОЙ длины:
+map.put(sum, i);  // Обновляем на последний индекс
+```
+
+### ❌ Ошибка 3: Игнорирование отрицательных чисел
+```java
+// Для задач с отрицательными числами:
+int[] nums = {1, -1, 1, -1};
+// HashMap работает корректно
+// TreeMap для "ближайшей суммы"
+```
+
+---
+
+## 🎪 Сравнение структур данных
+
+| Структура | Когда использовать | Пример задачи |
+|-----------|-------------------|---------------|
+| **HashMap** | Точное совпадение, подсчёт | Найти подмассив суммой = K |
+| **TreeMap** | Ближайшее значение, диапазоны | Найти подмассив суммой ≥ K |
+| **Monotonic Queue** | Sliding window максимум/минимум | Ограниченная длина |
+
+---
+
+## 🔬 **Продвинутые техники**
+
+### Комбинирование условий
+```java
+// Найти подмассив с суммой между A и B
+public int countSubarraysInRange(int[] nums, int A, int B) {
+    TreeMap<Integer, Integer> map = new TreeMap<>();
+    map.put(0, 1);
+    
+    int sum = 0, count = 0;
+    
+    for (int num : nums) {
+        sum += num;
+        
+        // sum - prev ≥ A → prev ≤ sum - A
+        // sum - prev ≤ B → prev ≥ sum - B
+        Map<Integer, Integer> subMap = map.subMap(sum - B, true, sum - A, true);
+        
+        for (int freq : subMap.values()) {
+            count += freq;
+        }
+        
+        map.put(sum, map.getOrDefault(sum, 0) + 1);
+    }
+    
+    return count;
+}
+```
+
+---
+
+## 📈 **Практическое применение**
+
+### В аналитике данных:
+```java
+// Найти период с максимальным ростом продаж
+public int[] bestSalesPeriod(int[] dailySales, int targetGrowth) {
+    // Используем префиксные суммы для скользящего среднего
+    // Ищем подпериод с ростом ≥ targetGrowth
+}
+```
+
+### В обработке сигналов:
+```java
+// Обнаружение аномалий в временных рядах
+public List<Integer> detectAnomalies(int[] sensorData, int threshold) {
+    // Ищем подпоследовательности с суммой превышающей нормальный диапазон
+}
+```
+
+### В финансовых алгоритмах:
+```java
+// Найти максимальную прибыль в исторических данных
+public int maxProfit(int[] prices) {
+    // Разность цен → префиксные суммы → задача о максимальной сумме подмассива
+}
+```
+
+---
+
+## 🧠 **Алгоритмический чеклист**
+
+1. **Определите тип задачи**:
+   - Точное совпадение → `map.containsKey(sum - target)`
+   - Подсчёт → `count += map.getOrDefault(sum - target, 0)`
+   - Максимальная длина → `putIfAbsent()`
+   - Минимальная длина → `put()` (обновлять)
+
+2. **Инициализируйте правильно**:
+   - `map.put(0, -1)` для индексов
+   - `map.put(0, 1)` для подсчёта
+
+3. **Учитывайте отрицательные числа**:
+   - HashMap работает для любых чисел
+   - Для "сумма ≥ K" нужна монотонная очередь
+
+4. **Тестируйте краевые случаи**:
+   - Пустой массив
+   - Отрицательный target
+   - Все числа одинаковые
+
+---
+
+## 🚀 **Быстрый старт: шаблон для 80% задач**
+
+```java
+public int solveSubarrayProblem(int[] nums, int target) {
+    // Шаг 1: Выбери структуру
+    Map<Integer, Integer> map = new HashMap<>();
+    
+    // Шаг 2: Правильная инициализация
+    map.put(0, -1); // или map.put(0, 1) для подсчёта
+    
+    // Шаг 3: Основной цикл
+    int sum = 0, result = 0; // или min/max значение
+    
+    for (int j = 0; j < nums.length; j++) {
+        sum += nums[j];
+        
+        // Шаг 4: Логика поиска
+        if (map.containsKey(sum - target)) {
+            // Обновление результата
+            result = Math.max(result, j - map.get(sum - target));
+        }
+        
+        // Шаг 5: Сохранение в map
+        map.putIfAbsent(sum, j); // для max длины
+        // map.put(sum, j); // для min длины
+        // map.put(sum, map.getOrDefault(sum, 0) + 1); // для подсчёта
+    }
+    
+    return result;
+}
+```
+
+---
+
+## 💡 **Золотые правила**
+
+1. **Префиксные суммы + HashMap** решает большинство задач о подмассивах за O(n)
+2. **Всегда инициализируй с (0, -1/1)** — не забывай про пустой подмассив
+3. **Для отрицательных чисел и "сумма ≥ K"** нужны более сложные структуры
+4. **Практикуй разные вариации** — точное значение, диапазон, модуль
+
+**Эта техника — фундамент для задач на подмассивы. Освой её — и 30% алгоритмических задач станут для тебя тривиальными!** 🎯
